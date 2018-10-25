@@ -50,9 +50,9 @@ export default () => ({
           {
             loader: 'babel-loader',
             options: {
-              babelrc: false,
+              babelrc: true,
               presets: [
-                ['es2015', { modules: false }],
+                ['env', { modules: false }],
                 'react',
               ],
             }
