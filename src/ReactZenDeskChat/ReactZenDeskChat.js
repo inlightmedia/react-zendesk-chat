@@ -27,7 +27,7 @@ export default class ZenDeskChat extends Component {
     }
 
     if (!window.$zopim) {
-        (function (document, script, id) {
+        const loadZenDesk = (function (document, script, id) {
             var zopim = window.$zopim = function (c) {
                     zopim._.push(c)
                 }
@@ -47,7 +47,22 @@ export default class ZenDeskChat extends Component {
             $.type = "text/javascript";
             element.parentNode.insertBefore($, element)
         })(document, "script", appID);
+
+        loadZenDesk.then(() => {
+          this.setLanguageProps();
+        })
     }
+  }
+
+  setLanguageProps = () => {
+    const { language, title, preChatGreeting, badgeText } = this.props;
+
+    $zopim(function() {
+      $zopim.livechat.setLanguage(language);
+      $zopim.livechat.window.setTitle(title);
+      $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+      $zopim.livechat.badge.setText(badgeText);
+    })
   }
 
   shouldComponentUpdate() {
