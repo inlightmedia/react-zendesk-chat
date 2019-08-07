@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { resolve } from 'url';
 const canUseDOM = !!(
   (typeof window !== 'undefined' &&
   window.document && window.document.createElement)
@@ -8,6 +9,10 @@ const canUseDOM = !!(
 export default class ZenDeskChat extends Component {
   static propTypes = {
     appID: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    preChatGreeting: PropTypes.string.isRequired,
+    badgeText: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -28,6 +33,7 @@ export default class ZenDeskChat extends Component {
 
     if (!window.$zopim) {
         const loadZenDesk = (function (document, script, id) {
+          return new Promise((resolve, reject) => {
             var zopim = window.$zopim = function (c) {
                     zopim._.push(c)
                 }
@@ -46,10 +52,23 @@ export default class ZenDeskChat extends Component {
             zopim.t = + new Date;
             $.type = "text/javascript";
             element.parentNode.insertBefore($, element)
+
+            $.onload = () => {
+              resolve();
+            };
+
+            $.onerror = () => {
+                reject(new Error('Zopim API load error.'));
+            };
+          })
         })(document, "script", appID);
 
         loadZenDesk.then(() => {
           this.setLanguageProps();
+          $zopim.livechat.window.show();
+        })
+        .catch(error => {
+          console.log(error)
         })
     }
   }
