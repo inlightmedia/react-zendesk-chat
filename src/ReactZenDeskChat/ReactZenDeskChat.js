@@ -37,58 +37,71 @@ export default class ZenDeskChat extends Component {
         return;
     }
 
-    if (!window.$zopim) {
-        const loadZenDesk = (function (document, script, id) {
-          return new Promise((resolve, reject) => {
-            var zopim = window.$zopim = function (c) {
-                    zopim._.push(c)
-                }
-            var $ = zopim.s = document.createElement(script);
-            var element = document.getElementsByTagName(script)[0];
-            
-            zopim.set = function (o) {
-                zopim.set._.push(o)
-            };
-            
-            zopim._ = [];
-            zopim.set._ = [];
-            $.async = !0;
-            $.setAttribute("charset", "utf-8");
-            $.src = "https://v2.zopim.com/?" + id;
-            zopim.t = + new Date;
-            $.type = "text/javascript";
-            element.parentNode.insertBefore($, element)
+    
+  }
 
-            $.onload = () => {
-              resolve();
-            };
+  componentDidMount() {
+    const {
+      appID,
+      onError,
+      language,
+      title,
+      preChatGreeting,
+      badgeText,
+    } = this.props;
+    if (!window.$zopim && !document.getElementsByClassName('zopim')[0]) {
+      const loadZenDesk = (function (document, script, id) {
+        return new Promise((resolve, reject) => {
+          var zopim = window.$zopim = function (c) {
+                  zopim._.push(c)
+              }
+          var $ = zopim.s = document.createElement(script);
+          var element = document.getElementsByTagName(script)[0];
+          
+          zopim.set = function (o) {
+              zopim.set._.push(o)
+          };
+          
+          zopim._ = [];
+          zopim.set._ = [];
+          $.async = !0;
+          $.setAttribute("charset", "utf-8");
+          $.src = "https://v2.zopim.com/?" + id;
+          zopim.t = + new Date;
+          $.type = "text/javascript";
+          element.parentNode.insertBefore($, element)
 
-            $.onerror = (error) => {
-              onError(error)  
-              reject(new Error('Zopim API load error.'));
+          $.onload = () => {
+            resolve();
+          };
 
-            };
-          })
-        })(document, "script", appID);
+          $.onerror = (error) => {
+            onError(error)  
+            reject(new Error('Zopim API load error.'));
 
-        loadZenDesk.then(() => {
-          // this.setLanguageProps();
-          if (language) {
-            this.setChatLanguage(language);
-          }
-          if (title) {
-            this.setTitleText(title);
-          }
-          if (preChatGreeting) {
-            this.setPreChatGreeting(preChatGreeting);
-          }
-          if (badgeText) {
-            this.setBadgeText(badgeText);
-          }
+          };
         })
-        .catch(error => {
-          console.log(error)
-        })
+      })(document, "script", appID);
+
+      loadZenDesk.then(() => {
+        // this.setLanguageProps();
+        if (language) {
+          this.setChatLanguage(language);
+        }
+        if (title) {
+          this.setTitleText(title);
+        }
+        if (preChatGreeting) {
+          this.setPreChatGreeting(preChatGreeting);
+        }
+        if (badgeText) {
+          this.setBadgeText(badgeText);
+        }
+        delete window.$zopim;
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
   }
 
