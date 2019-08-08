@@ -9,10 +9,11 @@ const canUseDOM = !!(
 export default class ZenDeskChat extends Component {
   static propTypes = {
     appID: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    preChatGreeting: PropTypes.string.isRequired,
-    badgeText: PropTypes.string.isRequired,
+    language: PropTypes.string,
+    title: PropTypes.string,
+    preChatGreeting: PropTypes.string,
+    badgeText: PropTypes.string,
+    onError: PropTypes.func,
   };
 
   constructor(props) {
