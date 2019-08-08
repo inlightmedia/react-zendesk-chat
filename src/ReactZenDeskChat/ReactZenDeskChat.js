@@ -9,17 +9,18 @@ const canUseDOM = !!(
 export default class ZenDeskChat extends Component {
   static propTypes = {
     appID: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    preChatGreeting: PropTypes.string.isRequired,
-    badgeText: PropTypes.string.isRequired,
+    language: PropTypes.string,
+    title: PropTypes.string,
+    preChatGreeting: PropTypes.string,
+    badgeText: PropTypes.string,
   };
 
   constructor(props) {
     super(props);
 
     const {
-      appID
+      appID,
+      onError,
     } = props;
 
     if (!appID){
@@ -57,8 +58,10 @@ export default class ZenDeskChat extends Component {
               resolve();
             };
 
-            $.onerror = () => {
-                reject(new Error('Zopim API load error.'));
+            $.onerror = (error) => {
+              onError(error)  
+              reject(new Error('Zopim API load error.'));
+
             };
           })
         })(document, "script", appID);
@@ -76,10 +79,10 @@ export default class ZenDeskChat extends Component {
     const { language, title, preChatGreeting, badgeText } = this.props;
 
     $zopim(function() {
-      $zopim.livechat.setLanguage(language);
-      $zopim.livechat.window.setTitle(title);
-      $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
-      $zopim.livechat.badge.setText(badgeText);
+      language && $zopim.livechat.setLanguage(language);
+      title && $zopim.livechat.window.setTitle(title);
+      preChatGreeting && $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+      badgeText && $zopim.livechat.badge.setText(badgeText);
     })
   }
 
