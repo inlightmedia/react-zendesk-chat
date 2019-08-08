@@ -65,7 +65,6 @@ export default class ZenDeskChat extends Component {
 
         loadZenDesk.then(() => {
           this.setLanguageProps();
-          $zopim.livechat.window.show();
         })
         .catch(error => {
           console.log(error)
