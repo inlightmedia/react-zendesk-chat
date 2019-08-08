@@ -9,11 +9,11 @@ const canUseDOM = !!(
 export default class ZenDeskChat extends Component {
   static propTypes = {
     appID: PropTypes.string.isRequired,
-    language: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    preChatGreeting: PropTypes.string.isRequired,
-    badgeText: PropTypes.string.isRequired,
-    onError: PropTypes.func.isRequired,
+    language: PropTypes.string,
+    title: PropTypes.string,
+    preChatGreeting: PropTypes.string,
+    badgeText: PropTypes.string,
+    onError: PropTypes.func,
   };
 
   constructor(props) {
@@ -72,18 +72,7 @@ export default class ZenDeskChat extends Component {
         })(document, "script", appID);
 
         loadZenDesk.then(() => {
-          if (language) {
-            this.setChatLanguage(language);
-          }
-          if (title) {
-            this.setTitleText(title);
-          }
-          if (preChatGreeting) {
-            this.setPreChatGreeting(preChatGreeting);
-          }
-          if (badgeText) {
-            this.setBadgeText(badgeText);
-          }
+          this.setLanguageProps();
         })
         .catch(error => {
           console.log(error)
@@ -91,40 +80,40 @@ export default class ZenDeskChat extends Component {
     }
   }
 
-  setChatLanguage = language => {
-    $zopim(function() {
-      $zopim.livechat.setLanguage(language);
-    })
-  }
-
-  setTitleText = title => {
-    $zopim(function() {
-      $zopim.livechat.window.setTitle(title);
-    })
-  }
-
-  setPreChatGreeting = preChatGreeting => {
-    $zopim(function() {
-      $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
-    })
-  }
-
-  setBadgeText = badgeText => {
-    $zopim(function() {
-      $zopim.livechat.badge.setText(badgeText);
-    })
-  }
-
-  // setLanguageProps = () => {
-  //   const { language, title, preChatGreeting, badgeText } = this.props;
-
+  // setChatLanguage = language => {
   //   $zopim(function() {
-  //     language && $zopim.livechat.setLanguage(language);
-  //     title && $zopim.livechat.window.setTitle(title);
-  //     preChatGreeting && $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
-  //     badgeText && $zopim.livechat.badge.setText(badgeText);
+  //     $zopim.livechat.setLanguage(language);
   //   })
   // }
+
+  // setTitleText = title => {
+  //   $zopim(function() {
+  //     $zopim.livechat.window.setTitle(title);
+  //   })
+  // }
+
+  // setPreChatGreeting = preChatGreeting => {
+  //   $zopim(function() {
+  //     $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+  //   })
+  // }
+
+  // setBadgeText = badgeText => {
+  //   $zopim(function() {
+  //     $zopim.livechat.badge.setText(badgeText);
+  //   })
+  // }
+
+  setLanguageProps = () => {
+    const { language, title, preChatGreeting, badgeText } = this.props;
+
+    $zopim(function() {
+      language && $zopim.livechat.setLanguage(language);
+      title && $zopim.livechat.window.setTitle(title);
+      preChatGreeting && $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+      badgeText && $zopim.livechat.badge.setText(badgeText);
+    })
+  }
 
   shouldComponentUpdate() {
     return false;
