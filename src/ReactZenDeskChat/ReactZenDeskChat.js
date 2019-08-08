@@ -72,10 +72,18 @@ export default class ZenDeskChat extends Component {
         })(document, "script", appID);
 
         loadZenDesk.then(() => {
-          language && this.setChatLanguage(language);
-          title && this.setTitleText(title);
-          preChatGreeting && this.setPreChatGreeting(preChatGreeting);
-          badgeText && this.setBadgeText(badgeText);
+          if (language) {
+            this.setChatLanguage(language);
+          }
+          if (title) {
+            this.setTitleText(title);
+          }
+          if (preChatGreeting) {
+            this.setPreChatGreeting(preChatGreeting);
+          }
+          if (badgeText) {
+            this.setBadgeText(badgeText);
+          }
         })
         .catch(error => {
           console.log(error)
