@@ -79,10 +79,10 @@ export default class ZenDeskChat extends Component {
     const { language, title, preChatGreeting, badgeText } = this.props;
 
     $zopim(function() {
-      language && $zopim.livechat.setLanguage(language);
-      title && $zopim.livechat.window.setTitle(title);
-      preChatGreeting && $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
-      badgeText && $zopim.livechat.badge.setText(badgeText);
+      $zopim.livechat.setLanguage(language);
+      $zopim.livechat.window.setTitle(title);
+      $zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+      $zopim.livechat.badge.setText(badgeText);
     })
   }
 
