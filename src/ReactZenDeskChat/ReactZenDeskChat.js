@@ -14,6 +14,7 @@ export default class ZenDeskChat extends Component {
 		preChatGreeting: PropTypes.string,
 		badgeText: PropTypes.string,
 		onError: PropTypes.func,
+		hideOnLaunch: PropTypes.bool
 	};
 
 	constructor(props) {
@@ -26,6 +27,7 @@ export default class ZenDeskChat extends Component {
 			title,
 			preChatGreeting,
 			badgeText,
+			hideOnLaunch
 		} = props;
 
 		if (!appID){
@@ -46,6 +48,7 @@ export default class ZenDeskChat extends Component {
 			title,
 			preChatGreeting,
 			badgeText,
+			hideOnLaunch
 		} = this.props;
 
 		if (!window.$zopim && !document.getElementsByClassName('zopim')[0]) {
@@ -86,6 +89,7 @@ export default class ZenDeskChat extends Component {
 				title && this.setTitleText(title);
 				preChatGreeting && this.setPreChatGreeting(preChatGreeting);
 				badgeText && this.setBadgeText(badgeText);
+				hideOnLaunch && this.setHideOnLaunch(hideOnLaunch);
 			})
 			.catch(error => {
 				console.log(error);
@@ -117,6 +121,14 @@ export default class ZenDeskChat extends Component {
 			$zopim.livechat.badge.setText(badgeText);
 		});
 	};
+
+	setHideOnLaunch = hideOnLaunch => {
+		if(hideOnLaunch){
+			$zopim(function() {
+				window.$zopim.livechat.window.hide()
+			})
+		}
+  };
 
 	shouldComponentUpdate() {
 		return false;
