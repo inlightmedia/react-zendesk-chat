@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ReactZenDeskChat from './ReactZenDeskChat';
+import ChatExample from './ChatExample';
 import { AppContainer } from 'react-hot-loader';
 // AppContainer is a necessary wrapper component for HMR
 
@@ -14,11 +14,11 @@ const render = (Component) => {
   );
 };
 
-render(Example);
+render(ChatExample);
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./ReactZenDeskChat', () => {
-    render(ReactZenDeskChat)
+  module.hot.accept('./ChatExample', () => {
+    render(ChatExample)
   });
 }

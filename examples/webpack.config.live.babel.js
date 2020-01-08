@@ -52,8 +52,11 @@ export default () => ({
             options: {
               babelrc: true,
               presets: [
-                ['env', { modules: false }],
-                'react',
+                ["@babel/env", { modules: false }], 
+                "@babel/react"
+              ],
+              plugins: [
+                "@babel/plugin-proposal-class-properties"
               ],
             }
           }

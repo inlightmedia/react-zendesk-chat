@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactZenDeskChat from '../src/index';
 
-class ReactZenDeskChat extends React.Component {
+class ChatExample extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -12,10 +12,10 @@ class ReactZenDeskChat extends React.Component {
   render() {
     return (
       <div>
-        <ReactZenDeskChat name="YOUR_ZENDESK_CHAT_ID_HERE"/>
+        <ReactZenDeskChat appID="INSERT_YOUR_APP_ID_HERE"/>
       </div>
     );
   }
 }
 
-export default ReactZenDeskChat;
+export default ChatExample;
