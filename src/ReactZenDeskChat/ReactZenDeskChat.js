@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { resolve } from 'url';
 const canUseDOM = !!(
 	(typeof window !== 'undefined' &&
 	window.document && window.document.createElement)
@@ -22,23 +21,17 @@ export default class ZenDeskChat extends Component {
 
 		const {
 			appID,
-			onError,
-			language,
-			title,
-			preChatGreeting,
-			badgeText,
-			hideOnLaunch
 		} = props;
 
 		if (!appID){
-			console.error('Error: Have you forgotten to pass in hte appID prop?');
+			console.error('Error: Have you forgotten to pass in the appID prop?');
 			throw new Error('Error: Cannot initialize the ZenDesk Chat Component. Have you forgotten to pass in the appID prop?');
 			return;
 		} else if(!canUseDOM) {
 			console.error('Error: Could not initialize Zendesk react. The DOM is not ready.');
 			return;
-		};
-	};
+		}
+	}
 
 	componentDidMount() {
 		const {
@@ -71,7 +64,7 @@ export default class ZenDeskChat extends Component {
 					$.src = "https://v2.zopim.com/?" + id;
 					zopim.t = + new Date;
 					$.type = "text/javascript";
-					element.parentNode.insertBefore($, element);
+					element && element.parentNode.insertBefore($, element);
 
 					$.onload = () => {
 						resolve();
@@ -95,51 +88,51 @@ export default class ZenDeskChat extends Component {
 				console.log(error);
 				onError && onError(error);
 			});
-		};
-	};
+		}
+	}
 
 	setChatLanguage = language => {
-		$zopim(function() {
-			$zopim.livechat.setLanguage(language);
+		window.$zopim(function() {
+			window.$zopim.livechat.setLanguage(language);
 		});
 	};
 
 	setTitleText = title => {
-		$zopim(function() {
-			$zopim.livechat.window.setTitle(title);
+		window.$zopim(function() {
+			window.$zopim.livechat.window.setTitle(title);
 		});
 	};
 
 	setPreChatGreeting = preChatGreeting => {
-		$zopim(function() {
-			$zopim.livechat.prechatForm.setGreetings(preChatGreeting);
+		window.$zopim(function() {
+			window.$zopim.livechat.prechatForm.setGreetings(preChatGreeting);
 		});
 	};
 
 	setBadgeText = badgeText => {
-		$zopim(function() {
-			$zopim.livechat.badge.setText(badgeText);
+		window.$zopim(function() {
+			window.$zopim.livechat.badge.setText(badgeText);
 		});
 	};
 
 	setHideOnLaunch = hideOnLaunch => {
 		if(hideOnLaunch){
-			$zopim(function() {
+			window.$zopim(function() {
 				window.$zopim.livechat.window.hide()
 			})
 		}
-  };
+    };
 
 	shouldComponentUpdate() {
 		return false;
-	};
+	}
 
 	componentWillUnmount() {
 		if (!canUseDOM || !window.$zopim) return false;
 		delete window.$zopim;
-	};
+	}
 
 	render() {
 		return false;
-	};
-};
+	}
+}
