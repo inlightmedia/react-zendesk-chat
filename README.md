@@ -14,7 +14,7 @@ then you can use the module in your app like so:
 
 Be sure to use your app id.
 
-To get it, go to your ZenDesk Chat dashboard after creating your account. Then, go to Settings > Widget > GettingStarted > 1. Embed the Zendesk Chat Widget
+To get it, go to your ZenDesk Chat dashboard (https://dashboard.zopim.com) after creating your account. Then, go to Settings > Widget > GettingStarted > 1. Embed the Zendesk Chat Widget
 
 You should see something that looks like this:
 
@@ -34,7 +34,7 @@ Your appID will be located after the '?' where it reads: <MY_ZEN_DESK_APP_ID>
 
 All the best and happy Zendesking!
 
-PS - This is not an official library and is not affiliated with Zendesk. I just made it and thought I'd open source it as I couldn't find another library to meet my needs. 
+PS - This is not an official library and is not affiliated with Zendesk. I just made it and thought I'd open source it as I couldn't find another library to meet my needs.
 
 NB: Feel free to contribute if you feel there could be some improvements but I don't accept any liability for use or misuse of this component in your projects.
 
