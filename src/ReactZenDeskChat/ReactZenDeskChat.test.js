@@ -1,15 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MyComponent from 'index';
+import ReactZenDeskChat from 'index';
 
-describe('MyComponent', () => {
+describe('ReactZenDeskChat should render', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<MyComponent />);
+    const wrapper = shallow(<ReactZenDeskChat appID="YOUR_APP_ID_HERE" />);
     expect(wrapper).toHaveLength(1);
-  });
-
-  it('should render name from prop', () => {
-    const wrapper = shallow(<MyComponent name='Jack'/>);
-    expect(wrapper.find('.name-holder').text()).toContain('My name is - Jack');
   });
 });
